@@ -123,7 +123,7 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 .impact-score{font-size:28px;font-weight:700;color:#4ade80;line-height:1}
 .impact-level-badge{padding:4px 12px;border-radius:20px;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.22);color:#4ade80;font-size:12px;font-weight:600}
 .impact-track{width:100%;height:10px;background:#1e1e1e;border-radius:5px;overflow:hidden;margin-bottom:12px}
-.impact-fill{height:100%;border-radius:5px;transition:width 1s cubic-bezier(.25,.1,.25,1);background:linear-gradient(90deg,#4ade80,#86efac)}
+.impact-fill{height:100%;border-radius:5px;transition:width 2s cubic-bezier(.25,.1,.25,1);background:linear-gradient(90deg,#4ade80,#86efac)}
 .impact-desc{font-size:13px;color:var(--tm);line-height:1.55}
 .popup-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:1000;justify-content:center;align-items:center;padding:20px}
 .popup-overlay.show{display:flex}
@@ -305,6 +305,18 @@ const TOTAL_STEPS=3;
 let impactTargets={energy:0,confidence:0,resilience:0};
 let impactObserver=null;
 
+function animateCount(elId, target, duration){
+  const el=document.getElementById(elId);
+  const start=performance.now();
+  function step(now){
+    const p=Math.min((now-start)/duration,1);
+    const ease=p<0.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    el.textContent='+'+Math.round(ease*target)+'%';
+    if(p<1)requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
 function setupImpactObserver(){
   if(impactObserver)impactObserver.disconnect();
   const section=document.querySelector('.impact-section');
@@ -314,6 +326,9 @@ function setupImpactObserver(){
         document.getElementById('barEnergy').style.width=impactTargets.energy+'%';
         document.getElementById('barConfidence').style.width=impactTargets.confidence+'%';
         document.getElementById('barResilience').style.width=impactTargets.resilience+'%';
+        animateCount('impactEnergy',impactTargets.energy,2000);
+        animateCount('impactConfidence',impactTargets.confidence,2000);
+        animateCount('impactResilience',impactTargets.resilience,2000);
       },150);
       impactObserver.disconnect();
     }
@@ -459,10 +474,10 @@ function calcImpact(start, end, freq, goal) {
     descR = 'Stressige Wochen werfen dich weniger aus der Bahn. Bessere Regeneration, klarere Gedanken.';
   }
 
-  // Animate bars
-  document.getElementById('impactEnergy').textContent = '+' + energy + '%';
-  document.getElementById('impactConfidence').textContent = '+' + confidence + '%';
-  document.getElementById('impactResilience').textContent = '+' + resilience + '%';
+  // Zahlen auf 0 zurücksetzen – zählen beim Scroll hoch
+  document.getElementById('impactEnergy').textContent = '+0%';
+  document.getElementById('impactConfidence').textContent = '+0%';
+  document.getElementById('impactResilience').textContent = '+0%';
   document.getElementById('levelEnergy').textContent = getLevel(energy);
   document.getElementById('levelConfidence').textContent = getLevel(confidence);
   document.getElementById('levelResilience').textContent = getLevel(resilience);
