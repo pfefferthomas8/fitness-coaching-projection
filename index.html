@@ -393,60 +393,52 @@ function calculate(){
 
 // ======== LIFESTYLE IMPACT ========
 function getLevel(score) {
-  if (score >= 80) return 'Sehr hoch';
-  if (score >= 60) return 'Hoch';
-  if (score >= 40) return 'Spürbar';
-  return 'Leicht';
+  if (score >= 75) return 'Sehr hoch';
+  return 'Hoch';
 }
 
 function calcImpact(start, end, freq, goal) {
   const bfDrop = start.bodyFat - end.bodyFat;
   const leanGain = end.leanMass - start.leanMass;
-  const freqBonus = {2:0, 3:8, 4:14, 5:18}[freq] || 0;
+  const freqBonus = {2:0, 3:10, 4:18, 5:26}[freq] || 0;
 
-  // ENERGY: driven by fat loss (better insulin sensitivity, stable blood sugar) + training frequency
-  let energy = Math.min(95, bfDrop * 4.5 + leanGain * 3 + freqBonus);
-  if (goal === 'muscle') energy = Math.min(95, leanGain * 6 + bfDrop * 2 + freqBonus);
-  energy = Math.max(15, Math.round(energy));
+  // ENERGY: Haupttreiber Fettabbau (Insulinsensitivität, stabiler Blutzucker) + Frequenz
+  // Basis 35 damit auch kurze Zeiträume realistisch wirken
+  let energy = Math.min(95, 35 + bfDrop * 5 + leanGain * 2 + freqBonus * 1.2);
+  if (goal === 'muscle') energy = Math.min(95, 35 + leanGain * 6 + bfDrop * 2 + freqBonus * 1.5);
+  energy = Math.round(energy);
 
-  // CONFIDENCE: driven by visible body change (bf drop has bigger visual impact) + lean gain
-  let confidence = Math.min(95, bfDrop * 5 + leanGain * 4 + freqBonus * 0.5);
-  if (goal === 'muscle') confidence = Math.min(95, leanGain * 7 + bfDrop * 2 + freqBonus * 0.5);
-  confidence = Math.max(15, Math.round(confidence));
+  // CONFIDENCE: Haupttreiber sichtbare Körperveränderung (KFA-Abnahme hat größten visuellen Effekt)
+  // Basis 20 – sichtbare Veränderung braucht mehr reale Fortschritte
+  let confidence = Math.min(95, 20 + bfDrop * 5.5 + leanGain * 5 + freqBonus * 0.8);
+  if (goal === 'muscle') confidence = Math.min(95, 20 + leanGain * 8 + bfDrop * 3 + freqBonus);
+  confidence = Math.round(confidence);
 
-  // RESILIENCE: driven by training consistency (freq) + overall body improvement
-  let resilience = Math.min(95, freqBonus * 2.5 + bfDrop * 2.5 + leanGain * 3);
-  if (goal === 'muscle') resilience = Math.min(95, freqBonus * 2.5 + leanGain * 5 + bfDrop * 1.5);
-  resilience = Math.max(15, Math.round(resilience));
-
-  // Labels based on score (also used globally)
-
+  // RESILIENCE: Haupttreiber Trainingsfrequenz (Gewohnheit = Stressresistenz)
+  // Basis 15 – hängt stark von Konstanz ab, nicht nur von Körperveränderung
+  let resilience = Math.min(95, 15 + freqBonus * 2.8 + bfDrop * 3 + leanGain * 2);
+  if (goal === 'muscle') resilience = Math.min(95, 15 + freqBonus * 2.8 + leanGain * 5 + bfDrop * 2);
+  resilience = Math.round(resilience);
 
   // Dynamic descriptions based on actual results
   let descE, descC, descR;
 
-  if (energy >= 70) {
+  if (energy >= 75) {
     descE = 'Stabilerer Blutzucker, weniger Nachmittagstiefs. Du kommst durch den Tag ohne einzubrechen.';
-  } else if (energy >= 45) {
+  } else {
     descE = 'Spürbar mehr Antrieb im Alltag. Weniger Müdigkeit nach dem Mittagessen.';
-  } else {
-    descE = 'Erste Verbesserungen in der Grundenergie. Der Körper beginnt effizienter zu arbeiten.';
   }
 
-  if (confidence >= 70) {
+  if (confidence >= 75) {
     descC = 'Du siehst es im Spiegel, du spürst es im Auftreten. Kleidung sitzt anders, Haltung verändert sich.';
-  } else if (confidence >= 45) {
-    descC = 'Sichtbare Veränderungen am Körper. Du gehst anders in Meetings und Gespräche.';
   } else {
-    descC = 'Erste sichtbare Fortschritte. Das Gefühl, dass sich etwas bewegt.';
+    descC = 'Sichtbare Veränderungen am Körper. Du gehst anders in Meetings und Gespräche.';
   }
 
-  if (resilience >= 70) {
+  if (resilience >= 75) {
     descR = 'Bessere Stressregulation, klarerer Kopf. Du triffst Entscheidungen ruhiger und schläfst tiefer.';
-  } else if (resilience >= 45) {
-    descR = 'Stressige Wochen werfen dich weniger aus der Bahn. Bessere Regeneration, klarere Gedanken.';
   } else {
-    descR = 'Dein Körper beginnt Stress besser zu verarbeiten. Erste Effekte auf Schlaf und Fokus.';
+    descR = 'Stressige Wochen werfen dich weniger aus der Bahn. Bessere Regeneration, klarere Gedanken.';
   }
 
   // Animate bars
