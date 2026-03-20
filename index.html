@@ -302,6 +302,24 @@ const FREQ_MULT={2:.75,3:1,4:1.15,5:1.22};
 let currentExp='beginner',currentGoal='fatloss',currentFreq=3;
 let formData={},currentFormStep=1;
 const TOTAL_STEPS=3;
+let impactTargets={energy:0,confidence:0,resilience:0};
+let impactObserver=null;
+
+function setupImpactObserver(){
+  if(impactObserver)impactObserver.disconnect();
+  const section=document.querySelector('.impact-section');
+  impactObserver=new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting){
+      setTimeout(()=>{
+        document.getElementById('barEnergy').style.width=impactTargets.energy+'%';
+        document.getElementById('barConfidence').style.width=impactTargets.confidence+'%';
+        document.getElementById('barResilience').style.width=impactTargets.resilience+'%';
+      },150);
+      impactObserver.disconnect();
+    }
+  },{threshold:0.35});
+  impactObserver.observe(section);
+}
 
 // ======== SLIDERS ========
 function styleSlider(el){const p=((el.value-el.min)/(el.max-el.min))*100;el.style.background=`linear-gradient(to right,#ee4f00 0%,#ee4f00 ${p}%,#2a2a2a ${p}%,#2a2a2a 100%)`}
@@ -452,12 +470,12 @@ function calcImpact(start, end, freq, goal) {
   document.getElementById('descConfidence').textContent = descC;
   document.getElementById('descResilience').textContent = descR;
 
-  // Delay bar animation for visual effect
-  setTimeout(() => {
-    document.getElementById('barEnergy').style.width = energy + '%';
-    document.getElementById('barConfidence').style.width = confidence + '%';
-    document.getElementById('barResilience').style.width = resilience + '%';
-  }, 300);
+  // Bars auf 0 zurücksetzen, Zielwerte speichern, Observer aufsetzen
+  document.getElementById('barEnergy').style.width = '0%';
+  document.getElementById('barConfidence').style.width = '0%';
+  document.getElementById('barResilience').style.width = '0%';
+  impactTargets = {energy, confidence, resilience};
+  setupImpactObserver();
 }
 
 // ======== LEAD FORM ========
