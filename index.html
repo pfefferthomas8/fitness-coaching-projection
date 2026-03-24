@@ -96,6 +96,11 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 .form-input{width:100%;padding:16px 18px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;color:var(--t);font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
 .form-input:focus{border-color:var(--accent)}
 .form-input::placeholder{color:var(--td)}
+.phone-group{display:flex;gap:8px}
+.phone-group .form-input{flex:1}
+.country-select{padding:16px 12px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;color:var(--t);font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;cursor:pointer;flex-shrink:0}
+.country-select:focus{border-color:var(--accent)}
+.country-select option{background:#1a1a1a;color:var(--t)}
 .form-nav{display:flex;gap:10px;margin-top:20px}
 .nav-btn{flex:1;padding:16px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;border:none}
 .nav-btn.next{background:var(--accent);color:#fff}
@@ -250,7 +255,23 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 
       <div class="form-step" data-step="3">
         <div class="form-question"><span class="step-num">Frage 3 von 3</span>Unter welcher Nummer kann ich dich per WhatsApp erreichen?</div>
-        <input class="form-input" type="tel" id="fPhone" placeholder="+43 660 1234567" autocomplete="tel">
+        <div class="phone-group">
+          <select class="country-select" id="fCountryCode">
+            <option value="+43">🇦🇹 +43</option>
+            <option value="+49">🇩🇪 +49</option>
+            <option value="+41">🇨🇭 +41</option>
+            <option value="+423">🇱🇮 +423</option>
+            <option value="+352">🇱🇺 +352</option>
+            <option value="+32">🇧🇪 +32</option>
+            <option value="+31">🇳🇱 +31</option>
+            <option value="+33">🇫🇷 +33</option>
+            <option value="+39">🇮🇹 +39</option>
+            <option value="+34">🇪🇸 +34</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+1">🇺🇸 +1</option>
+          </select>
+          <input class="form-input" type="tel" id="fPhone" placeholder="660 1234567" autocomplete="tel">
+        </div>
         <div class="form-note">Ich schicke dir eine kurze Sprachnachricht mit allen Infos zum Coaching und wie es für dich konkret weitergehen kann.</div>
         <div class="form-nav">
           <button class="nav-btn back" onclick="prevStep(3)">Zurück</button>
@@ -525,9 +546,10 @@ function nextStep(step){
 function prevStep(step){currentFormStep=step-1;renderFormStep()}
 
 function submitForm(){
+  const code=document.getElementById('fCountryCode').value;
   const phone=document.getElementById('fPhone').value.trim();
   if(!phone){document.getElementById('fPhone').focus();return}
-  formData.phone=phone;
+  formData.phone=code+' '+phone;
   const btn=document.getElementById('submitBtn');btn.textContent='Wird gesendet...';btn.disabled=true;
 
   if(typeof fbq==='function')fbq('track','Lead',{content_name:'Coaching Formular abgeschickt'});
