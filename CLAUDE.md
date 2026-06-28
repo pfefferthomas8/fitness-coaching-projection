@@ -1,7 +1,7 @@
 # Thomas Pfeffer - Projection Tool
 
 ## Projekt
-Interaktives Körper-Projektions-Tool für Premium 1:1 Online Fitness Coaching. Leads berechnen ihre realistische Körper-Transformation und bewerben sich direkt über ein integriertes 3-Fragen-Formular.
+Interaktives Körper-Projektions-Tool (kostenlos). Nutzer berechnen ihre realistische Körper-Transformation. Danach führt das Tool in den Funnel: kostenlose Projektion → 19 € persönliche Analyse → 2.497 € Coaching. Kein Lead-Formular mehr, keine Telefonnummer-Abfrage. Der CTA leitet auf die Analyse-Seite weiter und reicht alle Tracking-Parameter mit.
 
 ## Design System
 - Background: #0a0a0a
@@ -24,21 +24,24 @@ Interaktives Körper-Projektions-Tool für Premium 1:1 Online Fitness Coaching. 
 
 ## Services & Keys
 - Meta Pixel ID: 2039462596786177
-- EmailJS: Service service_vm4yypj / Template template_v8acq6m / Public Key ozP5yS651iffhazkF
 - Pushover: API Token a5b6aohsr31wf1c523r9bqa7r5bdsc / User Key usfd8f7r5md97mdycq1mjcug8swqeh (Priority 0, Sound cashregister)
+- (EmailJS wurde mit dem Lead-Formular entfernt – nicht mehr im Einsatz)
 
-## Pixel Funnel
-1. PageView → Seite geladen
-2. ViewContent → Projektion berechnet
-3. InitiateCheckout → "Für 1:1 Coaching bewerben" geklickt
-4. Lead → Formular abgeschickt
+## Funnel & Weiterleitung
+- Kostenlose Projektion → CTA "Persönliche Analyse holen" → https://www.form-training.at/analyse/ → 19 € Analyse → 2.497 € Coaching
+- CTA ist ein normaler `<a>`-Link. Beim Laden und nach jeder Berechnung wird die href via `refreshAnalyseUrl()` neu gebaut (`buildAnalyseUrl()`), inkl. aller Tracking-Parameter und der Projektionsdaten (`pj=`), damit ein Kauf auf form-training.at dem IG-Kontakt zugeordnet werden kann.
 
-## Lead-Formular (3 Fragen)
-1. Name (Textfeld)
-2. Situation (Multiple Choice: Voller Kalender / Keine Veränderung / Komme nicht wieder rein / Weiß nicht wo anfangen)
-3. WhatsApp-Nummer (Textfeld)
-
-Bei Absenden: EmailJS E-Mail + Pushover Push-Notification gleichzeitig. Beide enthalten Name, Situation, Telefonnummer, Projektionsdaten und Zeitstempel.
+## Tracking
+- Herkunft aus der DM-Link-URL: `?ref=<ig_handle>&utm_source=instagram&utm_medium=dm&utm_campaign=projektion`. `ref` = pro Empfänger anpassen (IG-Handle), so sieht Thomas, wer geklickt/gekauft hat.
+- `TRACK`-Modul (Top des Scripts) liest ref/utm, vergibt persistente Visitor-ID (`pj_vid` in localStorage), persistiert Werte und reicht alle eingehenden Query-Params an die Analyse-URL weiter.
+- Meta Pixel Funnel:
+  1. PageView → Seite geladen
+  2. ProjektionOpen (Custom) → Öffnen aus einer DM (nur wenn `ref` gesetzt)
+  3. ViewContent → Projektion berechnet
+  4. InitiateCheckout (value 19, EUR) + AnalyseClick (Custom) → CTA "Persönliche Analyse holen" geklickt
+  - Alle Events tragen Custom Data: ref, utm_source/medium/campaign, visitor_id.
+  - Der eigentliche Purchase (19 €) muss auf form-training.at/analyse gefeuert werden (separates Projekt).
+- Echtzeit-Push: Beim ersten CTA-Klick pro Visitor geht eine Pushover-Benachrichtigung an Thomas (ref, Quelle, Projektion, Visitor-ID) via `navigator.sendBeacon` (übersteht die Navigation). Guard `pj_clicked` in localStorage verhindert Mehrfach-Pushes.
 
 ## Projektions-Engine
 - Zielauswahl: Fettabbau oder Muskelaufbau

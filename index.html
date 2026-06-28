@@ -19,8 +19,6 @@ fbq('init', '2039462596786177');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2039462596786177&ev=PageView&noscript=1"/></noscript>
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 :root { --accent:#ee4f00; --dark:#0a0a0a; --card:#141414; --cb:#1f1f1f; --t:#e8e8e8; --tm:#888; --td:#555; }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -77,42 +75,19 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 .m-bf{color:var(--tm);font-size:13px}
 .m-lean{color:var(--td);font-size:12px}
 .cta-box{margin-top:32px;padding:28px 24px;background:linear-gradient(135deg,rgba(238,79,0,.09),rgba(238,79,0,.03));border:1px solid rgba(238,79,0,.19);border-radius:16px;text-align:center}
-.cta-box h3{font-size:18px;font-weight:700;margin-bottom:8px}
-.cta-box p{font-size:14px;color:var(--tm);margin-bottom:20px;line-height:1.6}
+.cta-box h3{font-size:20px;font-weight:700;margin-bottom:10px;line-height:1.3}
+.cta-box p{font-size:14px;color:var(--tm);margin-bottom:16px;line-height:1.6}
+.cta-subhead{font-size:15px;color:var(--t);font-weight:600;margin-bottom:16px;line-height:1.5}
+.offer-card{background:var(--card);border:1px solid var(--cb);border-radius:14px;padding:22px 20px;margin:22px 0;text-align:left}
+.offer-title{font-size:16px;font-weight:700;color:var(--t);margin-bottom:16px}
+.offer-bullets{list-style:none;margin:0 0 18px;padding:0}
+.offer-bullets li{position:relative;padding-left:24px;font-size:14px;color:var(--tm);line-height:1.5;margin-bottom:10px}
+.offer-bullets li:last-child{margin-bottom:0}
+.offer-bullets li::before{content:'';position:absolute;left:2px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.offer-price{font-size:21px;font-weight:700;color:var(--accent)}
 .cta-link{display:inline-block;padding:16px 40px;background:var(--accent);color:#fff;font-size:15px;font-weight:700;border-radius:12px;text-decoration:none;letter-spacing:.02em;transition:transform .15s;cursor:pointer;border:none;font-family:'DM Sans',sans-serif}
 .cta-link:hover{transform:scale(1.03)}
-.cta-sub{font-size:11px;color:var(--td);margin-top:12px}
-.lead-form{margin-top:32px;animation:fi .4s ease}
-.form-step{display:none}
-.form-step.active{display:block;animation:fi .3s ease}
-.form-progress{display:flex;gap:4px;margin-bottom:24px}
-.form-progress .bar{flex:1;height:3px;border-radius:2px;background:#2a2a2a;transition:background .3s}
-.form-progress .bar.done{background:var(--accent)}
-.form-question{font-size:16px;font-weight:600;color:var(--t);margin-bottom:16px;line-height:1.4}
-.form-question .step-num{color:var(--accent);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:6px}
-.option-btn{width:100%;padding:16px 18px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;color:var(--tm);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;font-size:14px;text-align:left;margin-bottom:8px;display:block}
-.option-btn:hover{border-color:#3a3a3a;background:#1e1e1e}
-.option-btn.selected{background:rgba(238,79,0,.1);border-color:var(--accent);color:var(--t)}
-.form-input{width:100%;padding:16px 18px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;color:var(--t);font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
-.form-input:focus{border-color:var(--accent)}
-.form-input::placeholder{color:var(--td)}
-.phone-group{display:flex;gap:8px}
-.phone-group .form-input{flex:1}
-.country-select{padding:16px 12px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;color:var(--t);font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;cursor:pointer;flex-shrink:0}
-.country-select:focus{border-color:var(--accent)}
-.country-select option{background:#1a1a1a;color:var(--t)}
-.form-nav{display:flex;gap:10px;margin-top:20px}
-.nav-btn{flex:1;padding:16px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;border:none}
-.nav-btn.next{background:var(--accent);color:#fff}
-.nav-btn.next:hover{transform:scale(1.02)}
-.nav-btn.next:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.nav-btn.back{background:#1a1a1a;color:var(--tm);border:1px solid #2a2a2a}
-.nav-btn.back:hover{border-color:#3a3a3a}
-.form-note{font-size:11px;color:var(--td);margin-top:8px;line-height:1.5}
-.success-box{text-align:center;padding:40px 24px;animation:fi .4s ease}
-.success-icon{width:64px;height:64px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;color:#fff;font-weight:700}
-.success-box h3{font-size:20px;font-weight:700;margin-bottom:10px}
-.success-box p{font-size:14px;color:var(--tm);line-height:1.6}
+.cta-sub{font-size:11px;color:var(--td);margin-top:14px;line-height:1.5}
 .footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--cb);font-size:11px;color:var(--td)}
 .hidden{display:none}
 @keyframes fi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -226,58 +201,24 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
     </div>
 
     <div class="cta-box" id="ctaBox">
-      <h3>Das ist deine realistische Projektion.</h3>
-      <p>Kein Idealfall. Kein Werbeversprechen.<br>Sondern das, was mit dem richtigen System<br>und echter Betreuung für dich drin ist.</p>
-      <button class="cta-link" onclick="openForm()">Für 1:1 Coaching bewerben</button>
-      <div class="cta-sub">3 kurze Fragen · 30 Sekunden · Unverbindlich</div>
-    </div>
-  </div>
+      <h3>Deine Projektion zeigt dir, was möglich ist.</h3>
+      <p class="cta-subhead">Die wichtigere Frage ist: Warum bist du heute noch nicht dort?</p>
+      <p>Genau dafür habe ich die persönliche Analyse entwickelt. Ich schaue mir deine aktuelle Situation individuell an und zeige dir, welcher Engpass dich aktuell am stärksten zurückhält.</p>
 
-  <!-- LEAD FORM -->
-  <div id="leadForm" class="lead-form hidden">
-    <div class="form-card" style="padding:24px 22px">
-      <div class="form-progress" id="formProgress"></div>
-
-      <div class="form-step active" data-step="1">
-        <div class="form-question"><span class="step-num">Frage 1 von 3</span>Wie heißt du?</div>
-        <input class="form-input" type="text" id="fName" placeholder="Vorname" autocomplete="given-name">
-        <div class="form-nav"><button class="nav-btn next" onclick="nextStep(1)">Weiter</button></div>
+      <div class="offer-card">
+        <div class="offer-title">Persönliche Analyse von Thomas</div>
+        <ul class="offer-bullets">
+          <li>Individuelles PDF zu deiner Ausgangslage</li>
+          <li>Persönliche Sprachnachricht von mir</li>
+          <li>Dein größter Engpass klar benannt</li>
+          <li>Konkreter nächster Schritt statt allgemeiner Tipps</li>
+          <li>Lieferung innerhalb von 48 Stunden</li>
+        </ul>
+        <div class="offer-price">19 € einmalig</div>
       </div>
 
-      <div class="form-step" data-step="2">
-        <div class="form-question"><span class="step-num">Frage 2 von 3</span>Was beschreibt deine Situation am besten?</div>
-        <button class="option-btn" onclick="selectOption(2,'Voller Kalender, Training bleibt auf der Strecke')">Voller Kalender, Training bleibt auf der Strecke</button>
-        <button class="option-btn" onclick="selectOption(2,'Ich trainiere, sehe aber keine Veränderung')">Ich trainiere, sehe aber keine Veränderung</button>
-        <button class="option-btn" onclick="selectOption(2,'Hatte früher eine Routine, komme nicht wieder rein')">Hatte früher eine Routine, komme nicht wieder rein</button>
-        <button class="option-btn" onclick="selectOption(2,'Weiß nicht wo ich anfangen soll')">Weiß nicht wo ich anfangen soll</button>
-        <div class="form-nav"><button class="nav-btn back" onclick="prevStep(2)">Zurück</button></div>
-      </div>
-
-      <div class="form-step" data-step="3">
-        <div class="form-question"><span class="step-num">Frage 3 von 3</span>Unter welcher Nummer kann ich dich per WhatsApp erreichen?</div>
-        <div class="phone-group">
-          <select class="country-select" id="fCountryCode">
-            <option value="+43">🇦🇹 +43</option>
-            <option value="+49">🇩🇪 +49</option>
-            <option value="+41">🇨🇭 +41</option>
-          </select>
-          <input class="form-input" type="tel" id="fPhone" placeholder="660 1234567" autocomplete="tel">
-        </div>
-        <div class="form-note">Ich schicke dir eine kurze Sprachnachricht mit allen Infos zum Coaching und wie es für dich konkret weitergehen kann.</div>
-        <div class="form-nav">
-          <button class="nav-btn back" onclick="prevStep(3)">Zurück</button>
-          <button class="nav-btn next" id="submitBtn" onclick="submitForm()">Absenden</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- SUCCESS -->
-  <div id="successScreen" class="hidden">
-    <div class="success-box">
-      <div class="success-icon">✓</div>
-      <h3>Fertig.</h3>
-      <p>Du bekommst in Kürze eine Sprachnachricht von mir per WhatsApp mit allen Infos zum Coaching und den nächsten Schritten.</p>
+      <a class="cta-link" id="analyseCta" href="https://www.form-training.at/analyse/" onclick="trackAnalyseClick()">Persönliche Analyse holen</a>
+      <div class="cta-sub">Kein Abo. Kein automatischer Standardreport. Ich sehe mir deine Angaben persönlich an.</div>
     </div>
   </div>
 
@@ -299,11 +240,61 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 </div>
 
 <script>
-// ======== EMAILJS CONFIG ========
-// Nach Setup ersetzen:
-const EMAILJS_PUBLIC_KEY = 'ozP5yS651iffhazkF';
-const EMAILJS_SERVICE_ID = 'service_vm4yypj';
-const EMAILJS_TEMPLATE_ID = 'template_v8acq6m';
+// ======== TRACKING ========
+// Erfasst Herkunft aus der DM-Link-URL (z.B. ?ref=instagram_handle&utm_source=instagram&utm_medium=dm),
+// vergibt eine persistente Visitor-ID und reicht alles an die Analyse-Seite weiter,
+// damit ein Kauf (19 €) auf form-training.at dem jeweiligen IG-Kontakt zugeordnet werden kann.
+const TRACK = (function(){
+  const params = new URLSearchParams(location.search);
+  function store(k,v){ try{ if(v) localStorage.setItem(k,v); }catch(e){} }
+  function load(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } }
+  let vid = load('pj_vid');
+  if(!vid){ vid = 'v'+Date.now().toString(36)+Math.random().toString(36).slice(2,8); store('pj_vid',vid); }
+  // ref = wer aus den DMs (IG-Handle), den Thomas pro Empfänger an den Link hängt
+  const ref      = params.get('ref') || params.get('ig') || params.get('utm_content') || load('pj_ref');
+  const source   = params.get('utm_source')   || load('pj_source');
+  const medium   = params.get('utm_medium')   || load('pj_medium');
+  const campaign = params.get('utm_campaign') || load('pj_campaign');
+  store('pj_ref',ref); store('pj_source',source); store('pj_medium',medium); store('pj_campaign',campaign);
+  return { params, vid, ref, source, medium, campaign };
+})();
+
+// Custom-Data für Meta Pixel Events
+function trackData(extra){
+  return Object.assign({
+    ref: TRACK.ref || '',
+    utm_source: TRACK.source || 'instagram',
+    utm_medium: TRACK.medium || 'dm',
+    utm_campaign: TRACK.campaign || 'projektion',
+    visitor_id: TRACK.vid
+  }, extra||{});
+}
+
+// Baut die Analyse-URL inkl. aller Tracking-Parameter (für Cross-Domain-Attribution des Kaufs)
+function buildAnalyseUrl(){
+  const q = new URLSearchParams();
+  // Eingehende Parameter (utm_*, fbclid, ref ...) unverändert durchreichen
+  TRACK.params.forEach((v,k)=>{ if(v) q.set(k,v); });
+  if(!q.get('utm_source'))   q.set('utm_source', TRACK.source   || 'instagram');
+  if(!q.get('utm_medium'))   q.set('utm_medium', TRACK.medium   || 'dm');
+  if(!q.get('utm_campaign')) q.set('utm_campaign', TRACK.campaign|| 'projektion');
+  if(TRACK.ref && !q.get('ref')) q.set('ref', TRACK.ref);
+  q.set('pj_vid', TRACK.vid);
+  if(formData.projection) q.set('pj', formData.projection);
+  return 'https://www.form-training.at/analyse/?' + q.toString();
+}
+
+// CTA-Link beim Laden mit Tracking-Parametern versehen (Fallback-Ziel bleibt im HTML)
+function refreshAnalyseUrl(){
+  const a = document.getElementById('analyseCta');
+  if(a) a.href = buildAnalyseUrl();
+}
+
+// Beim Öffnen aus einer DM ein Custom-Event feuern, damit die Herkunft auch ohne Berechnung sichtbar ist
+if(typeof fbq==='function' && TRACK.ref){
+  fbq('trackCustom','ProjektionOpen', trackData());
+}
+document.addEventListener('DOMContentLoaded', refreshAnalyseUrl);
 
 // ======== STATE ========
 const FLOORS={beginner:17,intermediate:16,advanced:15};
@@ -312,8 +303,7 @@ const FR_BASE={beginner:2.8,intermediate:2.4,advanced:2.0};
 const ADHERENCE=.82;
 const FREQ_MULT={2:.75,3:1,4:1.15,5:1.22};
 let currentExp='beginner',currentGoal='fatloss',currentFreq=3;
-let formData={},currentFormStep=1;
-const TOTAL_STEPS=3;
+let formData={};
 let impactTargets={energy:0,confidence:0,resilience:0};
 let impactObserver=null;
 
@@ -358,7 +348,7 @@ document.querySelectorAll('input[type="range"]').forEach(styleSlider);
 function setGoal(g){currentGoal=g;document.querySelectorAll('.goal-btn').forEach(b=>b.classList.toggle('active',b.dataset.goal===g));hideResults()}
 function setExp(e){currentExp=e;document.querySelectorAll('.sel-btn').forEach(b=>b.classList.toggle('active',b.dataset.exp===e));hideResults()}
 function setFreq(f){currentFreq=f;document.querySelectorAll('.freq-btn').forEach(b=>b.classList.toggle('active',parseInt(b.dataset.freq)===f));hideResults()}
-function hideResults(){document.getElementById('results').classList.add('hidden');document.getElementById('leadForm').classList.add('hidden');document.getElementById('successScreen').classList.add('hidden')}
+function hideResults(){document.getElementById('results').classList.add('hidden')}
 
 // ======== POPUP ========
 function openPopup(){document.getElementById('popup').classList.add('show');document.body.style.overflow='hidden'}
@@ -399,12 +389,15 @@ function drawChart(id,data,key,color){
 function fmtD(d,u){return `${d>0?'↑':'↓'} ${d>0?'+':''}${d.toFixed(1)}${u}`}
 
 function calculate(){
-  if(typeof fbq==='function')fbq('track','ViewContent',{content_name:'Projektion berechnet'});
+  if(typeof fbq==='function')fbq('track','ViewContent',trackData({content_name:'Projektion berechnet'}));
   const w=parseFloat(document.getElementById('weight').value),bf=parseFloat(document.getElementById('bf').value),mo=parseInt(document.getElementById('months').value);
-  const data=projection(w,bf,currentExp,mo,currentGoal,currentFreq);
+  // Bei KFA > 20% zuerst Fettabbau — egal was der User gewählt hat
+  const effectiveGoal=(currentGoal==='muscle'&&bf>20)?'fatloss':currentGoal;
+  const goalLabel=effectiveGoal==='fatloss'?'Fettabbau':'Muskelaufbau';
+  const data=projection(w,bf,currentExp,mo,effectiveGoal,currentFreq);
   const s=data[0],e=data[data.length-1];
-  formData.projection=`${currentGoal==='fatloss'?'Fettabbau':'Muskelaufbau'} | ${w}kg → ${e.weight}kg | KFA ${bf}% → ${e.bodyFat}% | ${mo} Monate | ${currentFreq}x/Woche | ${currentExp}`;
-  document.getElementById('resultsLabel').textContent=`${currentGoal==='fatloss'?'Fettabbau':'Muskelaufbau'}-Projektion nach ${mo} Monaten`;
+  formData.projection=`${goalLabel} | ${w}kg → ${e.weight}kg | KFA ${bf}% → ${e.bodyFat}% | ${mo} Monate | ${currentFreq}x/Woche | ${currentExp}`;
+  document.getElementById('resultsLabel').textContent=`${goalLabel}-Projektion nach ${mo} Monaten`;
   document.getElementById('rWeight').textContent=e.weight+' kg';
   document.getElementById('rWeightDiff').textContent=fmtD(e.weight-s.weight,' kg');
   document.getElementById('rBf').textContent=e.bodyFat+'%';
@@ -431,6 +424,7 @@ function calculate(){
   calcImpact(s, e, currentFreq, currentGoal);
 
   document.getElementById('ctaBox').classList.remove('hidden');
+  refreshAnalyseUrl();
   const el=document.getElementById('results');el.classList.remove('hidden');
   el.style.animation='none';el.offsetHeight;el.style.animation='fi .4s ease';
   setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),100);
@@ -505,75 +499,43 @@ function calcImpact(start, end, freq, goal) {
   setupImpactObserver();
 }
 
-// ======== LEAD FORM ========
-function openForm(){
-  if(typeof fbq==='function')fbq('track','InitiateCheckout',{content_name:'1:1 Coaching Bewerbung'});
-  document.getElementById('ctaBox').classList.add('hidden');
-  document.getElementById('leadForm').classList.remove('hidden');
-  currentFormStep=1;renderFormStep();
-  setTimeout(()=>document.getElementById('leadForm').scrollIntoView({behavior:'smooth',block:'start'}),100);
-}
+// ======== CTA: WEITERLEITUNG ZUR ANALYSE ========
+// Feuert das Meta-Pixel-Event und schickt Thomas eine Echtzeit-Push, wer aus den DMs
+// auf die Analyse geklickt hat. Danach navigiert der Link normal weiter (kein preventDefault).
+function trackAnalyseClick(){
+  refreshAnalyseUrl();
+  const cd = trackData({content_name:'Persönliche Analyse', content_category:'analyse', value:19, currency:'EUR'});
 
-function renderFormStep(){
-  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
-  const step=document.querySelector(`.form-step[data-step="${currentFormStep}"]`);
-  if(step){step.classList.add('active');step.style.animation='none';step.offsetHeight;step.style.animation='fi .3s ease'}
-  let bars='';for(let i=1;i<=TOTAL_STEPS;i++)bars+=`<div class="bar ${i<=currentFormStep?'done':''}"></div>`;
-  document.getElementById('formProgress').innerHTML=bars;
-}
-
-function selectOption(step,value){
-  formData['step'+step]=value;
-  const stepEl=document.querySelector(`.form-step[data-step="${step}"]`);
-  stepEl.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
-  event.target.closest('.option-btn').classList.add('selected');
-  setTimeout(()=>{currentFormStep=step+1;renderFormStep()},250);
-}
-
-function nextStep(step){
-  if(step===1){const n=document.getElementById('fName').value.trim();if(!n){document.getElementById('fName').focus();return}formData.name=n}
-  currentFormStep=step+1;renderFormStep();
-}
-function prevStep(step){currentFormStep=step-1;renderFormStep()}
-
-function submitForm(){
-  const code=document.getElementById('fCountryCode').value;
-  const phone=document.getElementById('fPhone').value.trim();
-  if(!phone){document.getElementById('fPhone').focus();return}
-  formData.phone=code+' '+phone;
-  const btn=document.getElementById('submitBtn');btn.textContent='Wird gesendet...';btn.disabled=true;
-
-  if(typeof fbq==='function')fbq('track','Lead',{content_name:'Coaching Formular abgeschickt'});
-
-  const emailData={
-    name:formData.name||'-',
-    situation:formData.step2||'-',
-    phone:formData.phone||'-',
-    projection:formData.projection||'-',
-    timestamp:new Date().toLocaleString('de-AT')
-  };
-
-  // EmailJS
-  if(EMAILJS_PUBLIC_KEY!=='DEIN_PUBLIC_KEY'){
-    emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,emailData,EMAILJS_PUBLIC_KEY)
-      .then(()=>console.log('Email sent')).catch(err=>console.error('Email error:',err));
+  if(typeof fbq==='function'){
+    fbq('track','InitiateCheckout', cd);
+    fbq('trackCustom','AnalyseClick', cd);
   }
 
-  // Pushover Push Notification
-  const pushBody=new URLSearchParams({
-    token:'a5b6aohsr31wf1c523r9bqa7r5bdsc',
-    user:'usfd8f7r5md97mdycq1mjcug8swqeh',
-    title:'Neue Bewerbung: '+(formData.name||'-'),
-    message:'Situation: '+(formData.step2||'-')+'\nWhatsApp: '+(formData.phone||'-')+'\n'+(formData.projection||''),
-    priority:'0',
-    sound:'cashregister'
-  });
-  fetch('https://api.pushover.net/1/messages.json',{method:'POST',body:pushBody})
-    .then(()=>console.log('Push sent')).catch(err=>console.error('Push error:',err));
-
-  document.getElementById('leadForm').classList.add('hidden');
-  document.getElementById('successScreen').classList.remove('hidden');
-  document.getElementById('successScreen').scrollIntoView({behavior:'smooth',block:'center'});
+  // Echtzeit-Push an Thomas – nur einmal pro Visitor, sendBeacon übersteht die Navigation
+  let already=false; try{ already=!!localStorage.getItem('pj_clicked'); }catch(e){}
+  if(!already){
+    try{ localStorage.setItem('pj_clicked','1'); }catch(e){}
+    const body=new URLSearchParams({
+      token:'a5b6aohsr31wf1c523r9bqa7r5bdsc',
+      user:'usfd8f7r5md97mdycq1mjcug8swqeh',
+      title:'Analyse-Klick'+(TRACK.ref?': '+TRACK.ref:''),
+      message:(TRACK.ref?'Von: '+TRACK.ref+'\n':'')
+        +'Quelle: '+(TRACK.source||'instagram')+' / '+(TRACK.medium||'dm')+'\n'
+        +(formData.projection?formData.projection+'\n':'')
+        +'ID: '+TRACK.vid,
+      priority:'0',
+      sound:'cashregister'
+    });
+    try{
+      const blob=new Blob([body.toString()],{type:'application/x-www-form-urlencoded'});
+      if(!(navigator.sendBeacon && navigator.sendBeacon('https://api.pushover.net/1/messages.json',blob))){
+        fetch('https://api.pushover.net/1/messages.json',{method:'POST',body,keepalive:true}).catch(()=>{});
+      }
+    }catch(e){
+      fetch('https://api.pushover.net/1/messages.json',{method:'POST',body,keepalive:true}).catch(()=>{});
+    }
+  }
+  return true;
 }
 </script>
 </body>
