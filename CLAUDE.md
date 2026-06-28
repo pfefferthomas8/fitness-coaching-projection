@@ -28,7 +28,9 @@ Interaktives Körper-Projektions-Tool (kostenlos). Nutzer berechnen ihre realist
 - (EmailJS wurde mit dem Lead-Formular entfernt – nicht mehr im Einsatz)
 
 ## Funnel & Weiterleitung
-- Kostenlose Projektion → CTA "Persönliche Analyse holen" → https://www.form-training.at/analyse/ → 19 € Analyse → 2.497 € Coaching
+- Kostenlose Projektion → CTA "Mehr zur persönlichen Analyse" → https://www.form-training.at/analyse/ → dort läuft der eigentliche Verkauf (19 € Analyse → 2.497 € Coaching)
+- Abschluss-Block (`#ctaBox`) ist bewusst hochwertig gehalten: Eyebrow "Dein nächster Schritt" + feine Akzentlinie oben, Headline "Du weißt jetzt, was möglich ist.", Frage "Warum stehst du heute noch nicht dort?", Überleitung zur Analyse, dezente Preis-Pille "Persönliche Analyse · 19 €", Full-Width-Button. Keine Bullets, keine Coaching-/Telefon-Texte.
+- Mobile-Umbrüche: `text-wrap:balance` (Headline/Subline/Button) + `text-wrap:pretty` (Fließtext) + gezielte `&nbsp;` gegen Orphan-Words. Auf 390px und im 480px-Container geprüft.
 - CTA ist ein normaler `<a>`-Link. Beim Laden und nach jeder Berechnung wird die href via `refreshAnalyseUrl()` neu gebaut (`buildAnalyseUrl()`), inkl. aller Tracking-Parameter und der Projektionsdaten (`pj=`), damit ein Kauf auf form-training.at dem IG-Kontakt zugeordnet werden kann.
 
 ## Tracking
