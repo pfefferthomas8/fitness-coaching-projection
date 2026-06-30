@@ -15,6 +15,9 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
+// autoConfig aus: verhindert, dass Meta automatisch Events aus DOM-Preisen/Buttons
+// ableitet (sonst wird der sichtbare Analyse-Preis fälschlich als Kauf getrackt).
+fbq('set', 'autoConfig', false, '2039462596786177');
 fbq('init', '2039462596786177');
 fbq('track', 'PageView');
 </script>
@@ -80,9 +83,6 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 .cta-box h3{font-size:22px;font-weight:700;margin-bottom:12px;line-height:1.25;text-wrap:balance}
 .cta-box p{font-size:14px;color:var(--tm);margin-bottom:24px;line-height:1.65;text-wrap:pretty}
 .cta-box p.cta-subhead{font-size:15px;color:var(--t);font-weight:600;margin-bottom:14px;line-height:1.5;text-wrap:balance}
-.cta-price{display:inline-flex;align-items:baseline;gap:10px;padding:11px 22px;margin-bottom:22px;background:rgba(0,0,0,.28);border:1px solid rgba(238,79,0,.25);border-radius:999px}
-.cta-price-label{font-size:13px;color:var(--tm);font-weight:500}
-.cta-price-val{font-size:19px;color:var(--accent);font-weight:700}
 .cta-link{display:block;width:100%;padding:17px 24px;background:var(--accent);color:#fff;font-size:15px;font-weight:700;border-radius:14px;text-decoration:none;letter-spacing:.01em;transition:transform .15s,box-shadow .15s;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;box-shadow:0 6px 24px rgba(238,79,0,.28);text-wrap:balance}
 .cta-link:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(238,79,0,.34)}
 .footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--cb);font-size:11px;color:var(--td)}
@@ -202,7 +202,6 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
       <h3>Du weißt jetzt, was möglich&nbsp;ist.</h3>
       <p class="cta-subhead">Die wichtigere Frage ist: Warum stehst du heute noch nicht&nbsp;dort?</p>
       <p>Genau dafür habe ich eine persönliche Analyse entwickelt. Ich schaue mir deine Situation persönlich an und zeige dir, welcher Engpass dich aktuell am meisten ausbremst und was dein sinnvollster nächster&nbsp;Schritt&nbsp;ist.</p>
-      <div class="cta-price"><span class="cta-price-label">Persönliche Analyse</span><span class="cta-price-val">19&nbsp;€</span></div>
       <a class="cta-link" id="analyseCta" href="https://www.form-training.at/analyse/" onclick="trackAnalyseClick()">Mehr zur persönlichen Analyse</a>
     </div>
   </div>
@@ -489,7 +488,9 @@ function calcImpact(start, end, freq, goal) {
 // auf die Analyse geklickt hat. Danach navigiert der Link normal weiter (kein preventDefault).
 function trackAnalyseClick(){
   refreshAnalyseUrl();
-  const cd = trackData({content_name:'Persönliche Analyse', content_category:'analyse', value:19, currency:'EUR'});
+  // Kein value/currency hier: auf dem Projektions-Tool entsteht kein Umsatz, nur ein Klick
+  // weiter zur Analyse. Der echte Purchase (19 €) wird erst auf form-training.at gefeuert.
+  const cd = trackData({content_name:'Persönliche Analyse', content_category:'analyse'});
 
   if(typeof fbq==='function'){
     fbq('track','InitiateCheckout', cd);
