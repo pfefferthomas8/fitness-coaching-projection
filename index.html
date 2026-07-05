@@ -292,6 +292,51 @@ function refreshAnalyseUrl(){
   if(a) a.href = buildAnalyseUrl();
 }
 
+// ── Supabase Funnel-Tracking (gleiche Pipeline wie /analyse und /start) ──
+// Session-ID hier ist origin-gebunden (workers.dev); die Verknüpfung zur Analyse-Seite
+// läuft über pj_vid, das in der Analyse-URL mitgegeben wird.
+const SB_TRACK_URL='https://wntmloqcoatrxxnphzju.supabase.co/functions/v1/track-event';
+const SB_ANON='sb_publishable_xEUak2s6rv6s8CKZxY-W4w_n7Sz84WY';
+const SB_BOT=/bot|crawl|spider|slurp|mediapartners|adsbot|facebookexternalhit|preview|headless|phantom|selenium|puppeteer/i.test(navigator.userAgent);
+(function(){
+  const nt=new URLSearchParams(location.search).get('notrack');
+  try{
+    if(nt==='1')localStorage.setItem('_fnotrack','1');
+    if(nt==='0')localStorage.removeItem('_fnotrack');
+  }catch(_){}
+})();
+function sbExcluded(){ try{ return localStorage.getItem('_fnotrack')==='1' }catch(_){ return false } }
+function sbSession(){
+  try{
+    let s=sessionStorage.getItem('_fsid');
+    if(!s){ s=crypto.randomUUID?crypto.randomUUID():(Math.random().toString(36).slice(2)+Date.now().toString(36)); sessionStorage.setItem('_fsid',s); }
+    return s;
+  }catch(_){ return 'pj_'+Date.now(); }
+}
+function sbEvent(event, extra){
+  if(SB_BOT||sbExcluded())return;
+  fetch(SB_TRACK_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+SB_ANON},
+    body:JSON.stringify({
+      session_id: sbSession(),
+      event,
+      params: Object.assign({
+        page:'projektion',
+        ref:TRACK.ref||null,
+        pj_vid:TRACK.vid,
+        utm_source:TRACK.source||null,
+        utm_medium:TRACK.medium||null,
+        utm_campaign:TRACK.campaign||null,
+      }, extra||{}),
+      device:/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)?'mobile':'desktop',
+      referrer:document.referrer||null,
+    }),
+    keepalive:true,
+  }).catch(()=>{});
+}
+sbEvent('PageView');
+
 // Beim Öffnen aus einer DM ein Custom-Event feuern, damit die Herkunft auch ohne Berechnung sichtbar ist
 if(typeof fbq==='function' && TRACK.ref){
   fbq('trackCustom','ProjektionOpen', trackData());
@@ -392,6 +437,7 @@ function fmtD(d,u){return `${d>0?'↑':'↓'} ${d>0?'+':''}${d.toFixed(1)}${u}`}
 
 function calculate(){
   if(typeof fbq==='function')fbq('track','ViewContent',trackData({content_name:'Projektion berechnet'}));
+  sbEvent('Calculated');
   const w=parseFloat(document.getElementById('weight').value),bf=parseFloat(document.getElementById('bf').value),mo=parseInt(document.getElementById('months').value);
   // Bei KFA > 20% zuerst Fettabbau — egal was der User gewählt hat
   const effectiveGoal=(currentGoal==='muscle'&&bf>20)?'fatloss':currentGoal;
@@ -511,6 +557,7 @@ function trackAnalyseClick(){
   // InitiateCheckout (19 €) entsteht erst beim Stripe-Klick auf form-training.at/analyse.
   // Hier nur ein eigenes Custom-Event, damit der Überleitungs-Klick messbar bleibt.
   const cd = trackData({content_name:'Persönliche Analyse', content_category:'analyse'});
+  sbEvent('AnalyseClick');
 
   if(typeof fbq==='function'){
     fbq('trackCustom','AnalyseClick', cd);
