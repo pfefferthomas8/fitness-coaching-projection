@@ -40,9 +40,11 @@ Interaktives Körper-Projektions-Tool (kostenlos). Nutzer berechnen ihre realist
   1. PageView → Seite geladen
   2. ProjektionOpen (Custom) → Öffnen aus einer DM (nur wenn `ref` gesetzt)
   3. ViewContent → Projektion berechnet
-  4. InitiateCheckout (value 19, EUR) + AnalyseClick (Custom) → CTA "Persönliche Analyse holen" geklickt
+  4. AnalyseClick (Custom) → CTA "Persönliche Analyse holen" geklickt (Überleitung zur Analyse-Seite)
+  - Hier wird BEWUSST KEIN InitiateCheckout gefeuert. Der Überleitungs-Klick ist noch kein Checkout-Intent.
+  - InitiateCheckout (value 19, EUR) entsteht erst auf form-training.at/analyse beim Klick auf den Stripe-19-€-Button.
   - Alle Events tragen Custom Data: ref, utm_source/medium/campaign, visitor_id.
-  - Der eigentliche Purchase (19 €) muss auf form-training.at/analyse gefeuert werden (separates Projekt).
+  - Der eigentliche Purchase (19 €) wird auf form-training.at/analyse gefeuert (separates Projekt).
 - Echtzeit-Push: Beim ersten CTA-Klick pro Visitor geht eine Pushover-Benachrichtigung an Thomas (ref, Quelle, Projektion, Visitor-ID) via `navigator.sendBeacon` (übersteht die Navigation). Guard `pj_clicked` in localStorage verhindert Mehrfach-Pushes.
 
 ## Projektions-Engine

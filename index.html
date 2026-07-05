@@ -491,11 +491,12 @@ function calcImpact(start, end, freq, goal) {
 function trackAnalyseClick(){
   refreshAnalyseUrl();
   // Kein value/currency hier: auf dem Projektions-Tool entsteht kein Umsatz, nur ein Klick
-  // weiter zur Analyse. Der echte Purchase (19 €) wird erst auf form-training.at gefeuert.
+  // weiter zur Analyse. InitiateCheckout wird BEWUSST NICHT hier gefeuert – der echte
+  // InitiateCheckout (19 €) entsteht erst beim Stripe-Klick auf form-training.at/analyse.
+  // Hier nur ein eigenes Custom-Event, damit der Überleitungs-Klick messbar bleibt.
   const cd = trackData({content_name:'Persönliche Analyse', content_category:'analyse'});
 
   if(typeof fbq==='function'){
-    fbq('track','InitiateCheckout', cd);
     fbq('trackCustom','AnalyseClick', cd);
   }
 
